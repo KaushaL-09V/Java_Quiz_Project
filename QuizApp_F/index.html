@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Master Quiz - Test Your Programming Skills</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+
+
+    <!-- Landing -->
+    <section class="landing-page">
+        <div class="wrapper">
+            <div class="flex-content">
+                <h1 class="vacation-heading"><i class="fas fa-brain"></i> Master Quiz</h1>
+                <p class="subtitle">Challenge yourself with interactive programming quizzes designed to test and improve
+                    your coding skills across multiple languages.</p>
+                <a href="#quiz-packages" class="btn"><i class="fas fa-play"></i> Start your quiz</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Background video -->
+    <div class="bg-video-container">
+        <video autoplay muted loop playsinline class="bg-video">
+            <source src="./images/Bg-1.mp4" type="video/mp4" />
+        </video>
+    </div>
+
+    <!-- Header -->
+    <header class="quiz-header" id="quiz-header">
+        <h1 class="heading"><i class="fas fa-laptop-code"></i> Master Quiz Platform</h1>
+        <p class="muted">Your gateway to programming excellence</p>
+    </header>
+
+
+    <nav class="main-nav">
+        <a href="#quiz-header">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="#quiz-packages">
+            <i class="fas fa-question-circle"></i> Quiz
+        </a>
+        <a href="#Performer">
+            <i class="fas fa-trophy"></i> Top Recruiters
+        </a>
+        <a href="#notes">
+            <i class="fas fa-book"></i> Notes
+        </a>
+        <a id="loginLink" href="login.html">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+        <a id="signupLink" href="signup.html">
+            <i class="fas fa-user-plus"></i> Sign up
+        </a>
+        <a id="logoutBtn" href="#" style="display:none">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </nav>
+
+    <!-- Categories -->
+    <section class="quiz-packages-section section" id="quiz-packages">
+        <h1 class="quiz-heading">Coding Challenges</h1>
+        <p class="quiz-text">Dive into our programming quizzes. Choose your preferred language and start!</p>
+
+        <div class="package-wrapper">
+            <div class="package-card">
+                <img src="./images/java.jpg" alt="Java" />
+                <p class="card-heading"><i class="fab fa-java"></i> Java</p>
+                <p class="card-text">OOP, collections, streams, and more.</p>
+                <button class="btn" onclick="startQuiz('java')"><i class="fas fa-play"></i> Take Java Quiz</button>
+            </div>
+            <div class="package-card">
+                <img src="./images/python.jpg" alt="Python" />
+                <p class="card-heading"><i class="fab fa-python"></i> Python</p>
+                <p class="card-text">Syntax, data structures, and libraries.</p>
+                <button class="btn" onclick="startQuiz('python')"><i class="fas fa-play"></i> Take Python Quiz</button>
+            </div>
+            <div class="package-card">
+                <img src="./images/js.png" alt="JavaScript" />
+                <p class="card-heading"><i class="fab fa-js"></i> JavaScript</p>
+                <p class="card-text">ES6+, DOM, async, and patterns.</p>
+                <button class="btn" onclick="startQuiz('javascript')"><i class="fas fa-play"></i> Take JS Quiz</button>
+            </div>
+            <div class="package-card">
+                <img src="./images/net.png" alt=".NET" />
+                <p class="card-heading"><i class="fas fa-code"></i> .NET</p>
+                <p class="card-text">C#, CLR, and framework basics.</p>
+                <button class="btn" onclick="startQuiz('dotnet')"><i class="fas fa-play"></i> Take .NET Quiz</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top recruiters (static) -->
+    <section class="recruiter-section section" id="Performer">
+        <h1 class="quiz-heading"><i class="fas fa-building"></i> Top Tech Recruiters</h1>
+        <p class="quiz-text">Explore leading tech companies hiring top talent.</p>
+        <div class="image-card">
+            <a href="https://www.tcs.com/careers" target="_blank"><img src="./images/tcs.png" alt="TCS" /></a>
+            <a href="https://www.infosys.com/careers" target="_blank"><img src="./images/infosys.png"
+                    alt="Infosys" /></a>
+            <a href="https://careers.wipro.com/" target="_blank"><img src="./images/wipro.jpeg" alt="Wipro" /></a>
+            <a href="https://careers.techmahindra.com/" target="_blank"><img src="./images/techmahindra.png"
+                    alt="Tech Mahindra" /></a>
+            <a href="https://careers.cognizant.com/" target="_blank"><img src="./images/cognizant.jpeg"
+                    alt="Cognizant" /></a>
+            <a href="https://www.accenture.com/in-en/careers" target="_blank"><img src="./images/accenture.png"
+                    alt="Accenture" /></a>
+        </div>
+    </section>
+
+    <!-- Study notes (static) -->
+    <section class="notes-section section" id="notes">
+        <h1 class="quiz-heading"><i class="fas fa-graduation-cap"></i> Study Materials</h1>
+        <p class="quiz-text">Guides and resources to sharpen your skills.</p>
+        <div class="notes-div">
+            <div class="notes-wrapper" title="Java Fundamentals"><img src="./images/java.jpg" alt="Java" />
+                <div class="pad">
+                    <h3>Java Fundamentals</h3>
+                </div>
+            </div>
+            <div class="notes-wrapper" title="Compiler Design"><img src="./images/compiler.png" alt="Compiler" />
+                <div class="pad">
+                    <h3>Compiler Design</h3>
+                </div>
+            </div>
+            <div class="notes-wrapper" title="Spring Framework"><img src="./images/spring.png" alt="Spring" />
+                <div class="pad">
+                    <h3>Spring Framework</h3>
+                </div>
+            </div>
+            <div class="notes-wrapper" title="React Development"><img src="./images/react.png" alt="React" />
+                <div class="pad">
+                    <h3>React Development</h3>
+                </div>
+            </div>
+            <div class="notes-wrapper" title="Best Practices"><img src="./images/dev.jpg" alt="Best Practices" />
+                <div class="pad">
+                    <h3>Best Practices</h3>
+                </div>
+            </div>
+            <div class="notes-wrapper" title="Python Programming"><img src="./images/python.jpg" alt="Python" />
+                <div class="pad">
+                    <h3>Python Programming</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-section">
+        <div class="container">
+            <p><i class="fas fa-heart"></i> Made with passion for coding education</p>
+            <small>All Rights Reserved © 2025</small>
+            <small> • Developed by <a href="https://github.com/KaushaL-09V" target="_blank">Kaushal Vadher</a></small>
+        </div>
+    </footer>
+
+    <script src="/app.js"></script>
+    <script>
+        // Hook up auth-aware header
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshAuthUI();
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                logout();
+                refreshAuthUI();
+            });
+        });
+        function startQuiz(category) {
+            // Require login to start a quiz
+            if (!isLoggedIn()) {
+                sessionStorage.setItem('redirectAfterLogin', `quiz.html?category=${encodeURIComponent(category)}`);
+                window.location.href = 'login.html';
+                return;
+            }
+            window.location.href = `quiz.html?category=${encodeURIComponent(category)}`;
+        }
+    </script>
+</body>
+
+</html>

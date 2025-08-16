@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz – Master Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body class="quiz-body">
+    <header class="quiz-top">
+        <a href="index.html" class="brand"><i class="fas fa-code"></i> Master Quiz</a>
+        <div class="quiz-meta">
+            <span id="catBadge" class="badge"></span>
+            <span id="progressText" class="muted"></span>
+            <button id="quitBtn" class="btn ghost small">Quit</button>
+        </div>
+    </header>
+
+    <main class="quiz-container">
+        <div id="loading" class="loading">Loading questions…</div>
+
+        <div id="quizBox" class="card" style="display:none">
+            <h2 id="qText"></h2>
+            <form id="optionsForm" class="options"></form>
+
+            <div class="quiz-actions">
+                <button id="prevBtn" class="btn ghost" disabled>Prev</button>
+                <button id="nextBtn" class="btn">Next</button>
+                <button id="submitBtn" class="btn success" style="display:none">Submit</button>
+            </div>
+        </div>
+
+        <div id="resultBox" class="result" style="display:none"></div>
+    </main>
+
+    <script src="/app.js"></script>
+    <script>
+        const params = new URLSearchParams(location.search);
+        const category = params.get('category') || 'java';
+        const catBadge = document.getElementById('catBadge');
+        const loading = document.getElementById('loading');
+        const quizBox = document.getElementById('quizBox');
+        const qText = document.getElementById('qText');
+        const optionsForm = document.getElementById('optionsForm');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const progressText = document.getElementById('progressText');
+        const resultBox = document.getElementById('resultBox');
+
+        let questions = [];
+        let index = 0;
+        const answers = {}; // questionId -> optionText
+
+        document.getElementById('quitBtn').onclick = () => window.location.href = 'index.html';
+
+        (async function init() {
+            requireLoginOrRedirect();
+            catBadge.textContent = category.toUpperCase();
+            try {
+                const res = await fetch(`${API_BASE}/questions/category/${encodeURIComponent(category)}`);
+                if (!res.ok) throw new Error('Failed to load');
+                questions = await res.json();
+                if (!Array.isArray(questions) || questions.length === 0) {
+                    loading.textContent = 'No questions found for this category.';
+                    return;
+                }
+                loading.style.display = 'none';
+                quizBox.style.display = 'block';
+                render();
+            } catch (e) {
+                loading.textContent = 'Error loading questions. Is the backend running on :8086?';
+            }
+        })();
+
+        function render() {
+            const q = questions[index];
+            qText.textContent = q.questionText;
+            progressText.textContent = `Question ${index + 1} / ${questions.length}`;
+
+            // Options
+            optionsForm.innerHTML = '';
+            (q.options || []).forEach((opt, i) => {
+                const id = `opt-${i}`;
+                const checked = answers[q.questionId] === opt.optionText ? 'checked' : '';
+                const html = `
+          <label class="option">
+            <input type="radio" name="answer" value="${escapeHtml(opt.optionText)}" ${checked} />
+            <span>${escapeHtml(opt.optionText)}</span>
+          </label>`;
+                optionsForm.insertAdjacentHTML('beforeend', html);
+            });
+
+            prevBtn.disabled = index === 0;
+            nextBtn.style.display = index < questions.length - 1 ? 'inline-block' : 'none';
+            submitBtn.style.display = index === questions.length - 1 ? 'inline-block' : 'none';
+        }
+
+        prevBtn.onclick = () => { saveSelection(); index--; render(); };
+        nextBtn.onclick = () => { if (saveSelection()) { index++; render(); } };
+        submitBtn.onclick = () => { if (saveSelection()) { grade(); } };
+
+        function saveSelection() {
+            const q = questions[index];
+            const sel = optionsForm.querySelector('input[name="answer"]:checked');
+            if (!sel) { toast('Please choose an option'); return false; }
+            answers[q.questionId] = sel.value;
+            return true;
+        }
+
+        function grade() {
+            let score = 0;
+            const review = [];
+            for (const q of questions) {
+                const userAns = answers[q.questionId];
+                const correct = q.correctAnswer;
+                const ok = String(userAns).trim() === String(correct).trim();
+                if (ok) score++;
+                review.push({
+                    question: q.questionText,
+                    userAnswer: userAns || '(no answer)',
+                    correctAnswer: correct,
+                    correct: ok
+                });
+            }
+            showResult(score, questions.length, review);
+        }
+
+        function showResult(score, total, review) {
+            quizBox.style.display = 'none';
+            resultBox.style.display = 'block';
+            const percent = Math.round((score / total) * 100);
+            resultBox.innerHTML = `
+        <div class="card result-card">
+          <h2>Result</h2>
+          <p class="big">${score} / ${total} (${percent}%)</p>
+          <div class="result-actions">
+            <a href="index.html" class="btn">Home</a>
+            <a href="quiz.html?category=${encodeURIComponent(category)}" class="btn ghost">Retry</a>
+          </div>
+          <details class="review">
+            <summary>Review answers</summary>
+            ${review.map((r, i) => `
+              <div class="review-item ${r.correct ? 'ok' : 'bad'}">
+                <div class="q"><strong>Q${i + 1}.</strong> ${escapeHtml(r.question)}</div>
+                <div><strong>Your answer:</strong> ${escapeHtml(r.userAnswer)}</div>
+                <div><strong>Correct answer:</strong> ${escapeHtml(r.correctAnswer)}</div>
+              </div>
+            `).join('')}
+          </details>
+        </div>`;
+        }
+    </script>
+</body>
+
+</html>

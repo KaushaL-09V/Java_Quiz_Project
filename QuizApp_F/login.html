@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login – Master Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body class="auth-body">
+    <div class="auth-card">
+        <h1><i class="fas fa-sign-in-alt"></i> Login</h1>
+        <p class="muted">Use demo creds (user / password) as per backend, or a local signup user.</p>
+
+        <form id="loginForm" class="auth-form">
+            <label>Username
+                <input type="text" name="username" required />
+            </label>
+            <label>Password
+                <input type="password" name="password" required />
+            </label>
+            <button type="submit" class="btn full">Login</button>
+            <a class="link" href="signup.html">No account? Sign up</a>
+        </form>
+
+        <div id="loginMsg" class="msg"></div>
+    </div>
+
+    <script src="/app.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = new FormData(e.currentTarget);
+            const username = form.get('username').trim();
+            const password = form.get('password').trim();
+            const msg = document.getElementById('loginMsg');
+            msg.textContent = 'Signing in…';
+
+            try {
+                // Try backend login first
+                const res = await fetch(`${API_BASE}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const text = await res.text();
+                if (text.includes('Login Successful')) {
+                    saveSession({ username, source: 'backend' });
+                    msg.className = 'msg success';
+                    msg.textContent = 'Login successful! Redirecting…';
+                    redirectAfterLogin();
+                    return;
+                }
+                // If backend rejects, fall back to local signup users
+                const localOk = localAuthLogin(username, password);
+                if (localOk) {
+                    saveSession({ username, source: 'local' });
+                    msg.className = 'msg success';
+                    msg.textContent = 'Logged in with local account. Redirecting…';
+                    redirectAfterLogin();
+                } else {
+                    msg.className = 'msg error';
+                    msg.textContent = 'Invalid credentials.';
+                }
+            } catch (err) {
+                // Network error -> try local
+                if (localAuthLogin(username, password)) {
+                    saveSession({ username, source: 'local' });
+                    msg.className = 'msg success';
+                    msg.textContent = 'Offline login with local account. Redirecting…';
+                    redirectAfterLogin();
+                } else {
+                    msg.className = 'msg error';
+                    msg.textContent = 'Login failed. Backend unreachable and no local account found.';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

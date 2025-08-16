@@ -1,4 +1,4 @@
-# 🎓 Master Quiz – Java Spring Boot + Vanilla JS
+# 🎓 Master Quiz – Java Spring Boot 
 
 An **interactive quiz application** built with **Spring Boot (Java)** for the backend and **HTML, CSS, and Vanilla JavaScript** for the frontend.  
 It allows users to **sign up, log in, and attempt quizzes** from different programming categories like **Java, Python, JavaScript, and .NET**.
@@ -44,4 +44,5 @@ It allows users to **sign up, log in, and attempt quizzes** from different progr
 - Auth-aware header with login/logout handling
 
 ---
+
 

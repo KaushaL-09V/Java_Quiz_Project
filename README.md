@@ -68,7 +68,7 @@ It allows users to **sign up, log in, and attempt quizzes** from different progr
 
 | Home Page | Quiz Selection |
 |-----------|----------------|
-| ![Home](Photo/4.png) | ![Quiz Options](Photo/6.png) |
+| ![Home](Photo/4.png) | ![Quiz Options](Photo/5.png)(Photo/6.png) |
 
 | Taking Quiz | Result Screen |
 |-------------|----------------|
@@ -100,5 +100,6 @@ It allows users to **sign up, log in, and attempt quizzes** from different progr
 - **No backend** – Fully client-side  
 
 ---
+
 
 

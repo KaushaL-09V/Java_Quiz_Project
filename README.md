@@ -51,10 +51,6 @@ It allows users to **sign up, log in, and attempt quizzes** from different progr
 
 ![Master Quiz Banner](Photo/3.png)
 
-> **Challenge yourself with interactive programming quizzes** designed to test and improve your technical skills across **Java, Python, JavaScript, .NET**, and more.
-
-[![GitHub](https://img.shields.io/github/stars//KaushaL-09V/Java_Quiz_Project?style=social)](https://github.com//KaushaL-09V/Java_Quiz_Project)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ---
 
@@ -87,6 +83,7 @@ It allows users to **sign up, log in, and attempt quizzes** from different progr
 - **Custom Quiz Length** (5, 10, 15, or 20 questions)  
 
 ---
+
 
 
 

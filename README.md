@@ -49,7 +49,7 @@ It allows users to **sign up, log in, and attempt quizzes** from different progr
 
 # Master Quiz – Interactive Programming Quiz Platform
 
-![Master Quiz Banner](Photo/5.png)
+![Master Quiz Banner](Photo/3.png)
 
 > **Challenge yourself with interactive programming quizzes** designed to test and improve your technical skills across **Java, Python, JavaScript, .NET**, and more.
 
@@ -72,11 +72,11 @@ It allows users to **sign up, log in, and attempt quizzes** from different progr
 
 | Taking Quiz | Result Screen |
 |-------------|----------------|
-| ![Question](Photo/1.png) | ![Result](Photo/3.png) |
+| ![Question](Photo/3.png) | ![Result](Photo/7.png) |
 
 | Create Account | Start Quiz |
 |----------------|------------|
-| ![Signup](Photo/2.png) | ![Start](Photo/7.png) |
+| ![Signup](Photo/1.png) | ![Start](Photo/2.png) |
 
 ---
 
@@ -101,5 +101,4 @@ It allows users to **sign up, log in, and attempt quizzes** from different progr
 
 ---
 
-## 📁 Project Structure
 

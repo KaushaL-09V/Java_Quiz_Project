@@ -58,11 +58,7 @@ It allows users to **sign up, log in, and attempt quizzes** from different progr
 
 ---
 
-## 🚀 Live Demo
-*(Replace with your live URL when hosted)*  
-🔗 [https:///KaushaL-09V/Java_Quiz_Project](https:///KaushaL-09V/Java_Quiz_Project)
 
----
 
 ## 📸 Screenshots
 
@@ -91,6 +87,7 @@ It allows users to **sign up, log in, and attempt quizzes** from different progr
 - **Custom Quiz Length** (5, 10, 15, or 20 questions)  
 
 ---
+
 
 
 

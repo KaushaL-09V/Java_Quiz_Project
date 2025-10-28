@@ -92,14 +92,6 @@ It allows users to **sign up, log in, and attempt quizzes** from different progr
 
 ---
 
-## 🛠️ Tech Stack
-
-- **HTML5**  
-- **CSS3** (Custom styling with modern UI)  
-- **JavaScript** (Vanilla JS – DOM manipulation, localStorage)  
-- **No backend** – Fully client-side  
-
----
 
 
 
